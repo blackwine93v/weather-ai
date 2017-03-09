@@ -1,0 +1,24 @@
+{
+  "name": "weather-ai",
+  "version": "1.0.0",
+  "description": "Weather using api.ai",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackwine93v/weather-ai.git"
+  },
+  "author": "daoquocvuong@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blackwine93v/weather-ai/issues"
+  },
+  "homepage": "https://github.com/blackwine93v/weather-ai#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "request": "^2.80.0"
+  }
+}
