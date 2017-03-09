@@ -26,10 +26,11 @@ router.get('/', (req, res)=>{
 
 router.post('/v1/weathers', (req, res)=>{
   var country = req.body.country, city = req.body.city;
+  console.log(req.body);
   if(!country && !city)
     return res.json({error: 'missing data'});
 
-  console.log(req.body);
+  
   var url = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'
   +country+','+city+'")&format=json&env=store://datatables.org/alltableswithkeys';
   request(url, (er, response, body)=>{
