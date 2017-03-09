@@ -46,7 +46,7 @@ router.post('/v1/aiweathers', (req, res)=>{
     return res.json({error: 'missing data'});
   var country = rs.parameters.country, city = rs.parameters.city;
   
-  console.log(req.body);
+  console.log(req.body, country, city);
 
   
   var url = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'
