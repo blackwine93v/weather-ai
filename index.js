@@ -60,13 +60,14 @@ router.post('/v1/aiweathers', (req, res)=>{
     if(data && data.query && data.query.results){
       let item = data.query.results.channel.item;
       let atmosphere = data.query.results.channel.atmosphere;
+      let location = data.query.results.channel.location;
 
-      let status = item.condition.text;
-      let temp = "Nhiệt độ trung bình: "+((item.condition.temp-32)/1.8).toFixed(1)+"°C (cao nhất "+((item.forecast[0].high-32)/1.8).toFixed(1)+"°C, thấp nhất "+((item.forecast[0].low-32)/1.8).toFixed(1)+"°C)";
-      let humidity = "Độ ẩm: "+atmosphere.humidity+"%";
+      let status = ".::Tình trạng: "+item.condition.text;
+      let temp = ".::Nhiệt độ trung bình: "+((item.condition.temp-32)/1.8).toFixed(1)+"°C (cao nhất "+((item.forecast[0].high-32)/1.8).toFixed(1)+"°C, thấp nhất "+((item.forecast[0].low-32)/1.8).toFixed(1)+"°C)";
+      let humidity = ".::Độ ẩm: "+atmosphere.humidity+"%";
 
       var resBody = {
-      "speech": "Weather for "+city+", "+country+"\n"+status+"\n"+temp+"\n"+humidity,
+      "speech": "Thời tiết ở "+location.city+", "+location.country+" (time: "+item.condition.date+")\n"+status+"\n"+temp+"\n"+humidity,
       "data": {},
       "contextOut": [],
       "source": "Yahoo Weather"
