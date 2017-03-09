@@ -56,16 +56,16 @@ console.log("City",city);
   console.log("URL",url);
   request(url, (er, response, body)=>{
     console.log("Weather er", er);
-    console.log("Weather response", response);
+    console.log("Weather response", response.body);
     console.log("Weather body", body);
     if(body){
-      body = {
-"speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
-"displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
-"data": {},
-"contextOut": [],
-"source": "DuckDuckGo"
-}
+//       body = {
+// "speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
+// "displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
+// "data": {},
+// "contextOut": [],
+// "source": "DuckDuckGo"
+// }
       return res.json(body);
     }
     else res.json({status: "get no result"});
