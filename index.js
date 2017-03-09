@@ -48,24 +48,31 @@ router.post('/v1/aiweathers', (req, res)=>{
   
   var url = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'
   +country+','+city+'")&format=json&env=store://datatables.org/alltableswithkeys';
-  console.log("URL",url);
-  request.get(url, (er, response, body)=>{
+
+  request(url, (er, response, body)=>{
     console.log("Weather er", er);
-    console.log("Weather body", body);
-    if(body && body.query.results){
-      let item = body.query.results.channel.item;
-      let atmosphere = body.query.results.channel.atmosphere;
+    console.log("Weather response", typeof response.body);
+    console.log("Weather response query", response.body.query);
+    console.log("Weather response results", response.body.results);
+    //console.log("Weather body", body);
+    let data = response.body && JSON.parse(response.body);
+
+    if(data && data.query && data.query.results){
+      let item = data.query.results.channel.item;
+      let atmosphere = data.query.results.channel.atmosphere;
 
       let status = item.condition.text;
-      let temp = "Nhiệt độ trung bình: "+(item.condition.temp-32)/1.8+"°C (cao nhất "+(item.forecast[0].high-32)/1.8+"°C, thấp nhất "+(item.forecast[0].low-32)/1.8+"°C)";
+      let temp = "Nhiệt độ trung bình: "+((item.condition.temp-32)/1.8).toFixed(1)+"°C (cao nhất "+((item.forecast[0].high-32)/1.8).toFixed(1)+"°C, thấp nhất "+((item.forecast[0].low-32)/1.8).toFixed(1)+"°C)";
       let humidity = "Độ ẩm: "+atmosphere.humidity+"%";
-      let resBody = {
+
+      var resBody = {
       "speech": "Weather for "+city+", "+country,
       "displayText": "Weather for "+city+", "+country+"\n"+status+"\n"+temp+"\n"+humidity,
       "data": {},
       "contextOut": [],
       "source": "Yahoo Weather"
       }
+      console.log(resBody);
       return res.json(resBody);
     }
     else res.json({status: "get no result"});
