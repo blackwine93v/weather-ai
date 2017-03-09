@@ -40,4 +40,30 @@ router.post('/v1/weathers', (req, res)=>{
   });
 });
 
+router.post('/v1/aiweathers', (req, res)=>{
+  var rs = req.body.result;
+  if(!rs || (rs && !rs.parameters.city || !rs.parameters.country))
+    return res.json({error: 'missing data'});
+  var country = rs.parameters.country, city = rs.parameters.city;
+  
+  console.log(req.body);
+
+  
+  var url = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'
+  +country+','+city+'")&format=json&env=store://datatables.org/alltableswithkeys';
+  request(url, (er, response, body)=>{
+    if(body){
+      body = {
+"speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
+"displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
+"data": {...},
+"contextOut": [...],
+"source": "DuckDuckGo"
+}
+      return res.json(body);
+    }
+    else res.json({status: "get no result"});
+  });
+});
+
 app.use(router);
