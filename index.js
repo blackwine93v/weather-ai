@@ -66,8 +66,7 @@ router.post('/v1/aiweathers', (req, res)=>{
       let humidity = "Độ ẩm: "+atmosphere.humidity+"%";
 
       var resBody = {
-      "speech": "Weather for "+city+", "+country,
-      "displayText": "Weather for "+city+", "+country+"\n"+status+"\n"+temp+"\n"+humidity,
+      "speech": "Weather for "+city+", "+country+"\n"+status+"\n"+temp+"\n"+humidity,
       "data": {},
       "contextOut": [],
       "source": "Yahoo Weather"
