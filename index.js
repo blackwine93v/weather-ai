@@ -42,6 +42,7 @@ router.post('/v1/weathers', (req, res)=>{
 
 router.post('/v1/aiweathers', (req, res)=>{
   var rs = req.body.result;
+  console.log("RS", rs);
   if(!rs || (rs && !rs.parameters.city || !rs.parameters.country))
     return res.json({error: 'missing data'});
   var country = rs.parameters.country, city = rs.parameters.city;
@@ -52,6 +53,7 @@ console.log("City",city);
   
   var url = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'
   +country+','+city+'")&format=json&env=store://datatables.org/alltableswithkeys';
+  console.log("URL",url);
   request(url, (er, response, body)=>{
     if(body){
       body = {
