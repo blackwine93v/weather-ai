@@ -66,7 +66,7 @@ router.post('/v1/aiweathers', (req, res)=>{
       "contextOut": [],
       "source": "Yahoo Weather"
       }
-      return res.json(body);
+      return res.json(resBody);
     }
     else res.json({status: "get no result"});
   });
