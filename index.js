@@ -55,6 +55,9 @@ console.log("City",city);
   +country+','+city+'")&format=json&env=store://datatables.org/alltableswithkeys';
   console.log("URL",url);
   request(url, (er, response, body)=>{
+    console.log("Weather er", er);
+    console.log("Weather response", response);
+    console.log("Weather body", body);
     if(body){
       body = {
 "speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
