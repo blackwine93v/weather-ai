@@ -4,7 +4,7 @@ var app = express();
 var router = express.Router();
 var request = require('request');
 
-const SRV_PORT = 8000;
+const SRV_PORT = 5000;
 
 app.listen(SRV_PORT, ()=>{
   console.log('Server is listening in port', SRV_PORT);
