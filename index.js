@@ -52,14 +52,20 @@ router.post('/v1/aiweathers', (req, res)=>{
   request.get(url, (er, response, body)=>{
     console.log("Weather er", er);
     console.log("Weather body", body);
-    if(body){
-      body = {
-"speech": "Barack Hussein Obama II is the 44th and current President of the United States.",
-"displayText": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University   and Harvard Law School, where ",
-"data": {},
-"contextOut": [],
-"source": "DuckDuckGo"
-}
+    if(body && body.query.results){
+      let item = body.query.results.channel.item;
+      let atmosphere = body.query.results.channel.atmosphere;
+
+      let status = item.condition.text;
+      let temp = "Nhiệt độ trung bình: "+(item.condition.temp-32)/1.8+"°C (cao nhất "+(item.forecast[0].high-32)/1.8+"°C, thấp nhất "+(item.forecast[0].low-32)/1.8+"°C)";
+      let humidity = "Độ ẩm: "+atmosphere.humidity+"%";
+      let resBody = {
+      "speech": "Weather for "+city+", "+country,
+      "displayText": "Weather for "+city+", "+country+"\n"+status+"\n"+temp+"\n"+humidity,
+      "data": {},
+      "contextOut": [],
+      "source": "Yahoo Weather"
+      }
       return res.json(body);
     }
     else res.json({status: "get no result"});
